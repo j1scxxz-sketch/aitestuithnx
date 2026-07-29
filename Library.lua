@@ -3444,6 +3444,39 @@ do --// UI Source
                         PaddingLeft = UDim.new(0, 7)
                     })
 
+                    -- Accent indicator dot that appears on the active tab
+                    Items["AccentDot"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Inactive"].Instance,
+                        AnchorPoint = Vector2.new(0, 0.5),
+                        Position = UDim2.new(0, 0, 0.5, 0),
+                        Size = UDim2.new(0, 5, 0, 5),
+                        BackgroundTransparency = 1,
+                        BorderSizePixel = 0,
+                        BackgroundColor3 = Library.Theme["Accent"],
+                        ZIndex = 3
+                    }):AddToTheme({BackgroundColor3 = 'Accent'})
+
+                    Library:Create("UIStroke", {
+                        Name = "\0",
+                        Parent = Items["AccentDot"].Instance,
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        LineJoinMode = Enum.LineJoinMode.Miter,
+                        Color = Library.Theme["Accent"],
+                        Transparency = 1
+                    }):AddToTheme({Color = 'Accent'})
+
+                    -- Hover tint that fades in when the inactive tab is moused over
+                    Items["HoverTint"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Inactive"].Instance,
+                        Size = UDim2.new(1, 0, 1, 0),
+                        BackgroundTransparency = 1,
+                        BorderSizePixel = 0,
+                        BackgroundColor3 = Library.Theme["Hovered Element"],
+                        ZIndex = 1
+                    }):AddToTheme({BackgroundColor3 = 'Hovered Element'})
+
                     Items["Text"] = Library:Create("TextLabel", {
                         Name = "\0",
                         FontFace = Library.BoldFont,
@@ -3455,7 +3488,7 @@ do --// UI Source
                         AnchorPoint = Vector2.new(0, 0.5),
                         Size = UDim2.new(0, 0, 0, 15),
                         BackgroundTransparency = 1,
-                        Position = UDim2.new(0, 0, 0.5, 0),
+                        Position = UDim2.new(0, 12, 0.5, 0),
                         BorderSizePixel = 0,
                         ZIndex = 2
                     }):AddToTheme({TextColor3 = 'Inactive Text'})
@@ -3604,6 +3637,14 @@ do --// UI Source
                     Page.ColumnsData[1] = Items["LeftColumn"]
                     Page.ColumnsData[2] = Items["RightColumn"]
 
+                    Items["Inactive"]:OnHover(function()
+                        if not Page.Active then
+                            Items["HoverTint"]:Tween({BackgroundTransparency = 0.55}, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+                        end
+                    end, function()
+                        Items["HoverTint"]:Tween({BackgroundTransparency = 1}, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+                    end)
+
                     Page.Items = Items
                 end
 
@@ -3638,13 +3679,21 @@ do --// UI Source
                             end
                         end)
 
+                        -- Accent dot fades out on the previously active tab
+                        Old.Items["AccentDot"]:Tween({BackgroundTransparency = 1}, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+                        local OldDotStroke = Old.Items["AccentDot"].Instance:FindFirstChildOfClass("UIStroke")
+                        if OldDotStroke then
+                            TweenService:Create(OldDotStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 1}):Play()
+                        end
+
                         -- Tab "descends" by 1px and text follows
                         Old.Items["Inactive"]:Tween({Size = UDim2.new(0, 0, 0, 21)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
-                        Old.Items["Text"]:Tween({Position = UDim2.new(0, 0, 0.5, 0)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
+                        Old.Items["Text"]:Tween({Position = UDim2.new(0, 12, 0.5, 0)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
 
                         Old.Items["Page"]:FadeDescendants(false, function()
                             Old.Items["Page"].Instance.Parent = Library.UnusedHolder.Instance
                         end)
+                        Old.Active = false
                     end
 
                     Items["Page"].Instance.Parent = Page.Window.Items["Content"].Instance
@@ -3656,6 +3705,17 @@ do --// UI Source
                     Items["Text"]:ChangeItemTheme({TextColor3 = "Text"})
                     Items["Text"]:Tween({TextColor3 = Library.Theme.Text})
 
+                    -- Accent dot fades in AND scales up slightly on the now-active tab
+                    Items["AccentDot"].Instance.Size = UDim2.new(0, 3, 0, 3)
+                    Items["AccentDot"]:Tween({BackgroundTransparency = 0, Size = UDim2.new(0, 5, 0, 5)}, TweenInfo.new(0.32, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
+                    local DotStroke = Items["AccentDot"].Instance:FindFirstChildOfClass("UIStroke")
+                    if DotStroke then
+                        TweenService:Create(DotStroke, TweenInfo.new(0.32, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0}):Play()
+                    end
+
+                    -- Hide hover tint on the now-active tab
+                    Items["HoverTint"]:Tween({BackgroundTransparency = 1}, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+
                     Items["Hide2"]:Tween({BackgroundTransparency = 1})
                     Items["Hide"].Instance.Visible = true
                     -- Underline slides in from left to right
@@ -3664,9 +3724,10 @@ do --// UI Source
 
                     -- Tab "lifts" up by 1px and text follows
                     Items["Inactive"]:Tween({Size = UDim2.new(0, 0, 0, 20)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
-                    Items["Text"]:Tween({Position = UDim2.new(0, 0, 0.5, 1)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
+                    Items["Text"]:Tween({Position = UDim2.new(0, 12, 0.5, 1)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
 
                     Page.Window.Current = Page
+                    Page.Active = true
                 end
 
                 Items["Inactive"]:Connect("MouseButton1Down", function()
@@ -3881,6 +3942,39 @@ do --// UI Source
                             PaddingLeft = UDim.new(0, 7)
                         })
 
+                        -- Accent indicator dot that appears on the active section tab
+                        NewItems["AccentDot"] = Library:Create("Frame", {
+                            Name = "\0",
+                            Parent = NewItems["Inactive"].Instance,
+                            AnchorPoint = Vector2.new(0, 0.5),
+                            Position = UDim2.new(0, 0, 0.5, 0),
+                            Size = UDim2.new(0, 5, 0, 5),
+                            BackgroundTransparency = 1,
+                            BorderSizePixel = 0,
+                            BackgroundColor3 = Library.Theme["Accent"],
+                            ZIndex = 3
+                        }):AddToTheme({BackgroundColor3 = 'Accent'})
+
+                        Library:Create("UIStroke", {
+                            Name = "\0",
+                            Parent = NewItems["AccentDot"].Instance,
+                            ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                            LineJoinMode = Enum.LineJoinMode.Miter,
+                            Color = Library.Theme["Accent"],
+                            Transparency = 1
+                        }):AddToTheme({Color = 'Accent'})
+
+                        -- Hover tint that fades in when the inactive section tab is moused over
+                        NewItems["HoverTint"] = Library:Create("Frame", {
+                            Name = "\0",
+                            Parent = NewItems["Inactive"].Instance,
+                            Size = UDim2.new(1, 0, 1, 0),
+                            BackgroundTransparency = 1,
+                            BorderSizePixel = 0,
+                            BackgroundColor3 = Library.Theme["Hovered Element"],
+                            ZIndex = 1
+                        }):AddToTheme({BackgroundColor3 = 'Hovered Element'})
+
                         NewItems["Text"] = Library:Create("TextLabel", {
                             Name = "\0",
                             FontFace = Library.BoldFont,
@@ -3892,7 +3986,7 @@ do --// UI Source
                             AnchorPoint = Vector2.new(0, 0.5),
                             Size = UDim2.new(0, 0, 0, 15),
                             BackgroundTransparency = 1,
-                            Position = UDim2.new(0, 0, 0.5, 1),
+                            Position = UDim2.new(0, 12, 0.5, 1),
                             BorderSizePixel = 0,
                             ZIndex = 2
                         }):AddToTheme({TextColor3 = 'Inactive Text'})
@@ -3977,6 +4071,14 @@ do --// UI Source
                             SortOrder = Enum.SortOrder.LayoutOrder
                         })
 
+                        NewItems["Inactive"]:OnHover(function()
+                            if not NewSection.Active then
+                                NewItems["HoverTint"]:Tween({BackgroundTransparency = 0.55}, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+                            end
+                        end, function()
+                            NewItems["HoverTint"]:Tween({BackgroundTransparency = 1}, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+                        end)
+
                         NewSection.Items = NewItems
                     end
 
@@ -4011,13 +4113,21 @@ do --// UI Source
                                 end
                             end)
 
+                            -- Accent dot fades out on the previously active section
+                            Old.Items["AccentDot"]:Tween({BackgroundTransparency = 1}, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+                            local OldDotStroke = Old.Items["AccentDot"].Instance:FindFirstChildOfClass("UIStroke")
+                            if OldDotStroke then
+                                TweenService:Create(OldDotStroke, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 1}):Play()
+                            end
+
                             -- Tab "descends" by 1px and text follows
                             Old.Items["Inactive"]:Tween({Size = UDim2.new(0, 0, 0, 21)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
-                            Old.Items["Text"]:Tween({Position = UDim2.new(0, 0, 0.5, 0)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
+                            Old.Items["Text"]:Tween({Position = UDim2.new(0, 12, 0.5, 0)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
 
                             Old.Items["Content"]:FadeDescendants(false, function()
                                 Old.Items["Content"].Instance.Parent = Library.UnusedHolder.Instance
                             end)
+                            Old.Active = false
                         end
 
                         NewItems["Content"].Instance.Parent = Items["Content"].Instance
@@ -4029,6 +4139,17 @@ do --// UI Source
                         NewItems["Text"]:ChangeItemTheme({TextColor3 = "Text"})
                         NewItems["Text"]:Tween({TextColor3 = Library.Theme.Text})
 
+                        -- Accent dot fades in AND scales up slightly on the now-active section
+                        NewItems["AccentDot"].Instance.Size = UDim2.new(0, 3, 0, 3)
+                        NewItems["AccentDot"]:Tween({BackgroundTransparency = 0, Size = UDim2.new(0, 5, 0, 5)}, TweenInfo.new(0.32, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
+                        local DotStroke = NewItems["AccentDot"].Instance:FindFirstChildOfClass("UIStroke")
+                        if DotStroke then
+                            TweenService:Create(DotStroke, TweenInfo.new(0.32, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Transparency = 0}):Play()
+                        end
+
+                        -- Hide hover tint on the now-active section
+                        NewItems["HoverTint"]:Tween({BackgroundTransparency = 1}, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+
                         NewItems["Hide2"]:Tween({BackgroundTransparency = 1})
                         NewItems["Hide"].Instance.Visible = true
                         -- Underline slides in from left to right
@@ -4037,9 +4158,10 @@ do --// UI Source
 
                         -- Tab "lifts" up by 1px and text follows
                         NewItems["Inactive"]:Tween({Size = UDim2.new(0, 0, 0, 20)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
-                        NewItems["Text"]:Tween({Position = UDim2.new(0, 0, 0.5, 1)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
+                        NewItems["Text"]:Tween({Position = UDim2.new(0, 12, 0.5, 1)}, TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
 
                         MultiSection.Current = NewSection
+                        NewSection.Active = true
                     end
 
                     NewItems["Inactive"]:Connect("MouseButton1Down", function()
@@ -4157,6 +4279,34 @@ do --// UI Source
                         BackgroundColor3 = Library.Theme["Accent"]
                     }):AddToTheme({BackgroundColor3 = 'Accent'})
 
+                    -- Checkmark that appears in the middle of the indicator when the toggle is on
+                    Items["Checkmark"] = Library:Create("TextLabel", {
+                        Name = "\0",
+                        FontFace = Library.Font,
+                        TextSize = 11,
+                        Parent = Items["Inline"].Instance,
+                        TextColor3 = Color3.fromRGB(255, 255, 255),
+                        Text = "\u2713",
+                        AnchorPoint = Vector2.new(0.5, 0.5),
+                        Size = UDim2.new(1, 0, 1, 0),
+                        BackgroundTransparency = 1,
+                        Position = UDim2.new(0.5, 0, 0.5, 0),
+                        TextTransparency = 1,
+                        BorderSizePixel = 0,
+                        ZIndex = 3
+                    })
+                    -- Override Tahoma with a Roblox built-in font that supports the checkmark glyph
+                    pcall(function()
+                        Items["Checkmark"].Instance.FontFace = Font.fromEnum(Enum.Font.ArialBold)
+                    end)
+
+                    Library:Create("UIStroke", {
+                        Name = "\0",
+                        Parent = Items["Checkmark"].Instance,
+                        Color = Color3.fromRGB(0, 0, 0),
+                        Transparency = 1
+                    })
+
                     Items["Text"] = Library:Create("TextLabel", {
                         Name = "\0",
                         FontFace = Library.Font,
@@ -4208,27 +4358,47 @@ do --// UI Source
                 function Toggle:Set(Bool)
                     Toggle.Value = Bool
 
-                    -- Subtle back-ease for a soft pop on the indicator fill
-                    local BounceInfo = TweenInfo.new(0.34, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
-                    -- Soft sine fade for the accent glow halo
-                    local GlowInfo = TweenInfo.new(0.45, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+                    -- Soft sine easing (avoids the negative-overshoot that Back was causing on transparency)
+                    local FillInfo = TweenInfo.new(0.28, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+                    local GlowInfo = TweenInfo.new(0.4, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+                    local CheckInfo = TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 
                     if Bool then
-                        -- Inline fills with a subtle bounce
-                        Items["Inline"]:Tween({BackgroundTransparency = 0, Size = UDim2.new(1, 0, 1, 0)}, BounceInfo)
+                        -- Inline fills smoothly with sine ease (accent colour now shows correctly)
+                        Items["Inline"]:Tween({BackgroundTransparency = 0, Size = UDim2.new(1, 0, 1, 0)}, FillInfo)
 
                         -- Glow halo softly fades in behind the indicator
                         Items["Glow"]:Tween({BackgroundTransparency = 0.78}, GlowInfo)
+
+                        -- Checkmark fades in slightly after the fill
+                        task.delay(0.06, function()
+                            if Items["Checkmark"] and Items["Checkmark"].Instance then
+                                Items["Checkmark"]:Tween({TextTransparency = 0}, CheckInfo)
+                                local CmStroke = Items["Checkmark"].Instance:FindFirstChildOfClass("UIStroke")
+                                if CmStroke then
+                                    TweenService:Create(CmStroke, CheckInfo, {Transparency = 0}):Play()
+                                end
+                            end
+                        end)
 
                         -- Text brightens
                         Items["Text"]:ChangeItemTheme({TextColor3 = "Text"})
                         Items["Text"]:Tween({TextColor3 = Library.Theme.Text})
                     else
-                        -- Inline empties out with the same bounce
-                        Items["Inline"]:Tween({BackgroundTransparency = 1, Size = UDim2.new(0, 0, 0, 0)}, BounceInfo)
+                        -- Inline empties out with the same sine ease
+                        Items["Inline"]:Tween({BackgroundTransparency = 1, Size = UDim2.new(0, 0, 0, 0)}, FillInfo)
 
                         -- Glow halo fades out
                         Items["Glow"]:Tween({BackgroundTransparency = 1}, GlowInfo)
+
+                        -- Checkmark fades out first
+                        if Items["Checkmark"] and Items["Checkmark"].Instance then
+                            Items["Checkmark"]:Tween({TextTransparency = 1}, CheckInfo)
+                            local CmStroke = Items["Checkmark"].Instance:FindFirstChildOfClass("UIStroke")
+                            if CmStroke then
+                                TweenService:Create(CmStroke, CheckInfo, {Transparency = 1}):Play()
+                            end
+                        end
 
                         -- Text dims back to inactive
                         Items["Text"]:ChangeItemTheme({TextColor3 = "Inactive Text"})
