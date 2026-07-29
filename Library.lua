@@ -910,7 +910,11 @@ do --// UI Source
                         ColorpickerWindow.Visible = true
                         Items["ColorpickerWindow"]:Tween({Position = UDim2.new(0, ColorpickerButton.AbsolutePosition.X, 0, ColorpickerButton.AbsolutePosition.Y + ColorpickerButton.AbsoluteSize.Y + 10 + GuiInset)})
                         Items["ColorpickerWindow"]:FadeDescendants(true, function() Debounce = false end)
-                        for Index, Value in Library.OpenFrames do if Value ~= IsSettings then Value:SetOpen(false) end end
+                        for Index, Value in Library.OpenFrames do 
+                            if Value ~= IsSettings then 
+                                Value:SetOpen(false) 
+                            end 
+                        end
                         Library.OpenFrames[Colorpicker] = Colorpicker
                     else
                         Items["ColorpickerWindow"]:Tween({Position = UDim2.new(0, ColorpickerButton.AbsolutePosition.X, 0, ColorpickerButton.AbsolutePosition.Y + ColorpickerButton.AbsoluteSize.Y - 10 + GuiInset)})
@@ -1027,6 +1031,8 @@ do --// UI Source
                         Name = "\0", FontFace = Library.Font, TextSize = Library.FontSize, Parent = Data.Parent.Instance, TextColor3 = Library.Theme["Inactive Text"], Text = "mb2", AutoButtonColor = false, BackgroundTransparency = 1, Size = UDim2.new(0, 0, 0, 14), TextXAlignment = Enum.TextXAlignment.Right, BorderSizePixel = 0, AutomaticSize = Enum.AutomaticSize.X
                     }):AddToTheme({TextColor3 = 'Inactive Text'})
 
+                    Library:Create("UIPadding", { Parent = Items["KeyButton"].Instance, PaddingRight = UDim.new(0, -1) })
+
                     Items["KeybindWindow"] = Library:Create("TextButton", {
                         Name = "\0", FontFace = Library.Font, TextSize = Library.FontSize, Parent = Library.UnusedHolder.Instance, Visible = false, TextColor3 = Color3.fromRGB(0, 0, 0), Text = "", AutoButtonColor = false, Size = UDim2.new(0, 200, 0, 50), Position = UDim2.new(0, 1030, 0, 197), BorderSizePixel = 0, AutomaticSize = Enum.AutomaticSize.Y, BackgroundColor3 = Library.Theme["Background"]
                     }):AddToTheme({BackgroundColor3 = 'Background'})
@@ -1052,7 +1058,11 @@ do --// UI Source
                         KeybindWindow.Parent = Library.Holder.Instance
                         Items["KeybindWindow"]:Tween({Position = UDim2.new(0, KeyButton.AbsolutePosition.X, 0, KeyButton.AbsolutePosition.Y + KeyButton.AbsoluteSize.Y + 10 + GuiInset)})
                         Items["KeybindWindow"]:FadeDescendants(true, function() Debounce = false end)
-                        for Index, Value in Library.OpenFrames do If Value ~= IsSettings then Value:SetOpen(false) end end
+                        for Index, Value in Library.OpenFrames do 
+                            if Value ~= IsSettings then 
+                                Value:SetOpen(false) 
+                            end 
+                        end
                         Library.OpenFrames[Keybind] = Keybind
                     else
                         Items["KeybindWindow"]:Tween({Position = UDim2.new(0, KeyButton.AbsolutePosition.X, 0, KeyButton.AbsolutePosition.Y + KeyButton.AbsoluteSize.Y - 10 + GuiInset)})
@@ -1844,8 +1854,8 @@ do --// UI Source
                     return NewColorpicker
                 end
 
-                function Toggle:Keybind(Data)
-                    local Keybind = { Name = Data.Name or Data.name or Toggle.Name, Flag = Data.Flag or Data.flag or (Data.Name or Data.name or Toggle.Name), Default = Data.Default or Data.default or Enum.KeyCode.E, Callback = Data.Callback or Data.callback or function() end, Mode = Data.Mode or Data.mode or "Toggle", Window = Toggle.Window, Page = Toggle.Page, Section = Toggle.Section }
+                function Toggle:Keybind(data)
+                    local Keybind = { Name = data.Name or data.name or Toggle.Name, Flag = data.Flag or data.flag or (data.Name or data.name or Toggle.Name), Default = data.Default or data.default or Enum.KeyCode.E, Callback = data.Callback or data.callback or function() end, Mode = data.Mode or data.mode or "Toggle", Window = Toggle.Window, Page = Toggle.Page, Section = Toggle.Section }
                     local NewKeybind, KeybindItems = Library:CreateKeybind({ Parent = Items["SubElements"], Name = Keybind.Name, Page = Keybind.Page, Section = Keybind.Section, Toggle = Toggle, Flag = Keybind.Flag, Default = Keybind.Default, Mode = Keybind.Mode, Callback = Keybind.Callback })
                     return NewKeybind
                 end
@@ -2178,7 +2188,11 @@ do --// UI Source
                         OptionHolder.Parent = Library.Holder.Instance
                         Items["OptionHolder"]:Tween({Position = UDim2.new(0, RealDropdown.AbsolutePosition.X, 0, RealDropdown.AbsolutePosition.Y + RealDropdown.AbsoluteSize.Y + 10 + GuiInset)})
                         Items["OptionHolder"]:FadeDescendants(true, function() Debounce = false end)
-                        for Index, Value in Library.OpenFrames do If Value ~= IsSettings and not Params.Parent then Value:SetOpen(false) end end
+                        for Index, Value in Library.OpenFrames do 
+                            if Value ~= IsSettings and not Params.Parent then 
+                                Value:SetOpen(false) 
+                            end 
+                        end
                         Library.OpenFrames[Dropdown] = Dropdown
                         -- Rotate Arrow
                         Items["Arrow"]:Tween({Rotation = 180}, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
