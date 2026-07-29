@@ -1669,7 +1669,7 @@ do --// UI Source
                     Keybind.Picking = true
 
                     Items["KeyButton"].Instance.Text = ". . ."
-                    Items["KeyButton"]:Tween({TextColor3 = Library.Theme.Text})
+                    Items["KeyButton"]:Tween({TextColor3 = Library.Theme.Accent})
 
                     local InputBegan
                     InputBegan = UserInputService.InputBegan:Connect(function(Input)
@@ -3024,7 +3024,7 @@ do --// UI Source
                 task.wait()
                 Items["Notification"].Instance.Size = UDim2.new(0, 0, 0, Size.Y)
 
-                local Info = TweenInfo.new(1, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out, 0, false, 0)
+                local Info = TweenInfo.new(0.45, Enum.EasingStyle.Quart, Enum.EasingDirection.Out, 0, false, 0)
 
                 Library:Thread(function()
                     for Index, Value in Items do
@@ -3531,8 +3531,10 @@ do --// UI Source
                     Page.Debounce = true
 
                     if Old then
+                        Old.Active = false
                         Old.Items["Text"]:ChangeItemTheme({TextColor3 = "Inactive Text"})
                         Old.Items["Text"]:Tween({TextColor3 = Library.Theme["Inactive Text"]})
+                        Old.Items["Text"]:Tween({Position = UDim2.new(0, 0, 0.5, 0)}, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
 
                         Old.Items["Hide2"]:Tween({BackgroundTransparency = 0})
                         Old.Items["Hide"].Instance.Visible = false
@@ -3551,17 +3553,28 @@ do --// UI Source
                         Page.Debounce = false
                     end)
 
+                    Page.Active = true
                     Items["Text"]:ChangeItemTheme({TextColor3 = "Text"})
                     Items["Text"]:Tween({TextColor3 = Library.Theme.Text})
+                    Items["Text"]:Tween({Position = UDim2.new(0, 0, 0.5, 1)}, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
 
                     Items["Hide2"]:Tween({BackgroundTransparency = 1})
                     Items["Hide"].Instance.Visible = true
 
                     Items["Inactive"].Instance.Size = UDim2.new(0, 0, 0, 20)
-                    Items["Text"].Instance.Position = UDim2.new(0, 0, 0.5, 1)
 
                     Page.Window.Current = Page
                 end
+
+                Items["Inactive"]:OnHover(function()
+                    if not Page.Active then
+                        Items["Text"]:Tween({TextColor3 = Library.Theme.Text})
+                    end
+                end, function()
+                    if not Page.Active then
+                        Items["Text"]:Tween({TextColor3 = Library.Theme["Inactive Text"]})
+                    end
+                end)
 
                 Items["Inactive"]:Connect("MouseButton1Down", function()
                     Page:Turn()
@@ -3850,7 +3863,7 @@ do --// UI Source
                             Parent = NewItems["Inactive"].Instance,
                             AnchorPoint = Vector2.new(0, 1),
                             Position = UDim2.new(0, -7, 1, 1),
-                            Size = UDim2.new(1, 14, 0, 1),
+                            Size = UDim2.new(1, 14, 0,1),
                             ZIndex = 4,
                             BorderSizePixel = 0,
                             BackgroundColor3 = Library.Theme["Inline"]
@@ -3892,14 +3905,15 @@ do --// UI Source
                         NewSection.Debounce = true
 
                         if Old then
+                            Old.Active = false
                             Old.Items["Text"]:ChangeItemTheme({TextColor3 = "Inactive Text"})
                             Old.Items["Text"]:Tween({TextColor3 = Library.Theme["Inactive Text"]})
+                            Old.Items["Text"]:Tween({Position = UDim2.new(0, 0, 0.5, 0)}, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
 
                             Old.Items["Hide2"]:Tween({BackgroundTransparency = 0})
                             Old.Items["Hide"].Instance.Visible = false
 
                             Old.Items["Inactive"].Instance.Size = UDim2.new(0, 0, 0, 21)
-                            Old.Items["Text"].Instance.Position = UDim2.new(0, 0, 0.5, 0)
 
                             Old.Items["Content"]:FadeDescendants(false, function()
                                 Old.Items["Content"].Instance.Parent = Library.UnusedHolder.Instance
@@ -3912,17 +3926,28 @@ do --// UI Source
                             NewSection.Debounce = false
                         end)
 
+                        NewSection.Active = true
                         NewItems["Text"]:ChangeItemTheme({TextColor3 = "Text"})
                         NewItems["Text"]:Tween({TextColor3 = Library.Theme.Text})
+                        NewItems["Text"]:Tween({Position = UDim2.new(0, 0, 0.5, 1)}, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
 
                         NewItems["Hide2"]:Tween({BackgroundTransparency = 1})
                         NewItems["Hide"].Instance.Visible = true
 
                         NewItems["Inactive"].Instance.Size = UDim2.new(0, 0, 0, 20)
-                        NewItems["Text"].Instance.Position = UDim2.new(0, 0, 0.5, 1)
 
                         MultiSection.Current = NewSection
                     end
+
+                    NewItems["Inactive"]:OnHover(function()
+                        if not NewSection.Active then
+                            NewItems["Text"]:Tween({TextColor3 = Library.Theme.Text})
+                        end
+                    end, function()
+                        if not NewSection.Active then
+                            NewItems["Text"]:Tween({TextColor3 = Library.Theme["Inactive Text"]})
+                        end
+                    end)
 
                     NewItems["Inactive"]:Connect("MouseButton1Down", function()
                         NewSection:Turn()
@@ -4005,12 +4030,14 @@ do --// UI Source
                         BorderOffset = UDim.new(0, 1)
                     }):AddToTheme({Color = 'Outline 3'})
 
+                    -- Enhanced Toggle Animation Scaling
                     Items["Inline"] = Library:Create("Frame", {
                         Name = "\0",
                         Parent = Items["Indicator"].Instance,
                         AnchorPoint = Vector2.new(0.5, 0.5),
                         BackgroundTransparency = 1,
                         Position = UDim2.new(0.5, 0, 0.5, 0),
+                        Size = UDim2.new(0, 0, 0, 0),
                         BorderSizePixel = 0,
                         BackgroundColor3 = Library.Theme["Accent"]
                     }):AddToTheme({BackgroundColor3 = 'Accent'})
@@ -4067,11 +4094,13 @@ do --// UI Source
                     Toggle.Value = Bool
 
                     if Bool then
-                        Items["Inline"]:Tween({BackgroundTransparency = 0, Size = UDim2.new(1, 0, 1, 0)})
+                        -- Bouncy easing style for enable
+                        Items["Inline"]:Tween({BackgroundTransparency = 0, Size = UDim2.new(1, -2, 1, -2)}, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out))
                         Items["Text"]:ChangeItemTheme({TextColor3 = "Text"})
                         Items["Text"]:Tween({TextColor3 = Library.Theme.Text})
                     else
-                        Items["Inline"]:Tween({BackgroundTransparency = 1, Size = UDim2.new(0, 0, 0, 0)})
+                        -- Smooth easing style for disable
+                        Items["Inline"]:Tween({BackgroundTransparency = 1, Size = UDim2.new(0, 0, 0, 0)}, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
                         Items["Text"]:ChangeItemTheme({TextColor3 = "Inactive Text"})
                         Items["Text"]:Tween({TextColor3 = Library.Theme["Inactive Text"]})
                     end
@@ -4313,11 +4342,14 @@ do --// UI Source
                 end
 
                 function Button:Press()
+                    -- Smoother Button Press Animation
                     Items["RealButton"]:ChangeItemTheme({BackgroundColor3 = "Accent"})
-                    Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme.Accent})
-                    task.wait(0.1)
-                    Items["RealButton"]:ChangeItemTheme({BackgroundColor3 = "Content"})
-                    Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme.Content})
+                    Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme.Accent}, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+                    
+                    task.delay(0.15, function()
+                        Items["RealButton"]:ChangeItemTheme({BackgroundColor3 = "Content"})
+                        Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme.Content}, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
+                    end)
 
                     Library:SafeCall(Button.Callback)
                 end
@@ -4416,17 +4448,18 @@ do --// UI Source
                         BackgroundColor3 = Library.Theme["Accent"]
                     }):AddToTheme({BackgroundColor3 = 'Accent'})
 
+                    -- Detached Value Text so it stays on the right
                     Items["Value"] = Library:Create("TextLabel", {
                         Name = "\0",
                         FontFace = Library.Font,
                         TextSize = Library.FontSize,
-                        Parent = Items["Accent"].Instance,
+                        Parent = Items["Slider"].Instance,
                         TextColor3 = Library.Theme["Text"],
-                        Text = "1871ft",
-                        AnchorPoint = Vector2.new(1, 0.5),
+                        Text = "0",
+                        AnchorPoint = Vector2.new(1, 0),
                         Size = UDim2.new(0, 0, 0, 12),
                         BackgroundTransparency = 1,
-                        Position = UDim2.new(1, 10, 0.5, -1),
+                        Position = UDim2.new(1, -1, 0, 0),
                         BorderSizePixel = 0,
                         AutomaticSize = Enum.AutomaticSize.X
                     }):AddToTheme({TextColor3 = 'Text'})
@@ -4756,6 +4789,7 @@ do --// UI Source
                         TextColor3 = Library.Theme["Inactive Text"],
                         Text = Value,
                         AutoButtonColor = false,
+                        BackgroundColor3 = Library.Theme["Accent"], -- Required for hover transparency effect
                         BackgroundTransparency = 1,
                         Size = UDim2.new(1, 0, 0, 12),
                         TextXAlignment = Enum.TextXAlignment.Left,
@@ -4777,19 +4811,21 @@ do --// UI Source
 
                     OptionButton:OnHover(function()
                         if OptionData.IsSelected then return end
-                        OptionButton:Tween({TextColor3 = Library.Theme.Text})
+                        OptionButton:Tween({TextColor3 = Library.Theme.Text, BackgroundTransparency = 0.8})
                     end, function()
                         if OptionData.IsSelected then return end
-                        OptionButton:Tween({TextColor3 = Library.Theme["Inactive Text"]})
+                        OptionButton:Tween({TextColor3 = Library.Theme["Inactive Text"], BackgroundTransparency = 1})
                     end)
 
                     function OptionData:ToggleState(Value)
                         if Value == "Active" then
                             OptionData.Text:ChangeItemTheme({TextColor3 = "Accent"})
                             OptionData.Text:Tween({TextColor3 = Library.Theme.Accent})
+                            OptionButton:Tween({BackgroundTransparency = 0.6})
                         else
                             OptionData.Text:ChangeItemTheme({TextColor3 = "Inactive Text"})
                             OptionData.Text:Tween({TextColor3 = Library.Theme["Inactive Text"]})
+                            OptionButton:Tween({BackgroundTransparency = 1})
                         end
                     end
 
@@ -5222,13 +5258,20 @@ do --// UI Source
                     Library:SafeCall(Textbox.Callback, Value)
                 end
 
-                if Textbox.Finished then
-                    Items["Input"]:Connect("FocusLost", function(PressedEnterQuestionMark)
-                        if PressedEnterQuestionMark then
-                            Textbox:Set(Items["Input"].Instance.Text)
-                        end
-                    end)
-                else
+                -- Better Focus Integration for polish
+                Items["Input"]:Connect("Focused", function()
+                    Items["Background"]:Tween({BackgroundColor3 = Library.Theme["Hovered Element"]}, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
+                end)
+
+                Items["Input"]:Connect("FocusLost", function(PressedEnterQuestionMark)
+                    Items["Background"]:Tween({BackgroundColor3 = Library.Theme["Inline"]}, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
+                    
+                    if Textbox.Finished and PressedEnterQuestionMark then
+                        Textbox:Set(Items["Input"].Instance.Text)
+                    end
+                end)
+
+                if not Textbox.Finished then
                     Library:Connect(Items["Input"].Instance:GetPropertyChangedSignal("Text"), function()
                         Textbox:Set(Items["Input"].Instance.Text)
                     end)
