@@ -4286,7 +4286,7 @@ do --// UI Source
                         TextSize = 11,
                         Parent = Items["Inline"].Instance,
                         TextColor3 = Color3.fromRGB(255, 255, 255),
-                        Text = "\u2713",
+                        Text = "\u{2713}",
                         AnchorPoint = Vector2.new(0.5, 0.5),
                         Size = UDim2.new(1, 0, 1, 0),
                         BackgroundTransparency = 1,
