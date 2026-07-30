@@ -1833,6 +1833,47 @@ do --// UI Source
                         BackgroundColor3 = Library.Theme["Inline"]
                     }):AddToTheme({BackgroundColor3 = 'Inline'})
 
+                    -- Accent dot indicator for a polished, branded watermark
+                    Items["AccentDot"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Title"].Instance,
+                        AnchorPoint = Vector2.new(0, 0.5),
+                        Position = UDim2.new(0, 0, 0.5, 0),
+                        Size = UDim2.new(0, 3, 0, 3),
+                        BorderSizePixel = 0,
+                        ZIndex = 3,
+                        BackgroundColor3 = Library.Theme["Accent"]
+                    }):AddToTheme({BackgroundColor3 = 'Accent'})
+
+                    Library:Create("UIStroke", {
+                        Name = "\0",
+                        Parent = Items["AccentDot"].Instance,
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        LineJoinMode = Enum.LineJoinMode.Miter,
+                        Color = Library.Theme["Outline 3"],
+                        BorderOffset = UDim.new(0, 1)
+                    }):AddToTheme({Color = 'Outline 3'})
+
+                    -- Subtle accent underline beneath the title for extra depth
+                    Items["AccentLine"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Title"].Instance,
+                        AnchorPoint = Vector2.new(0, 1),
+                        Position = UDim2.new(0, 0, 1, -1),
+                        Size = UDim2.new(1, 0, 0, 1),
+                        BorderSizePixel = 0,
+                        ZIndex = 3,
+                        BackgroundColor3 = Library.Theme["Accent"]
+                    }):AddToTheme({BackgroundColor3 = 'Accent'})
+
+                    Library:Create("UIStroke", {
+                        Name = "\0",
+                        Parent = Items["AccentLine"].Instance,
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        LineJoinMode = Enum.LineJoinMode.Miter,
+                        Color = Library.Theme["Outline 3"]
+                    }):AddToTheme({Color = 'Outline 3'})
+
                     Library:Create("UIStroke", {
                         Name = "\0",
                         Parent = Items["Title"].Instance,
@@ -1882,8 +1923,8 @@ do --// UI Source
                     Library:Create("UIPadding", {
                         Name = "\0",
                         Parent = Items["Title"].Instance,
-                        PaddingRight = UDim.new(0, 8),
-                        PaddingLeft = UDim.new(0, 8)
+                        PaddingRight = UDim.new(0, 9),
+                        PaddingLeft = UDim.new(0, 9)
                     })
 
                     Items["Text"] = Library:Create("TextLabel", {
@@ -1898,7 +1939,7 @@ do --// UI Source
                         AnchorPoint = Vector2.new(0, 0.5),
                         BorderSizePixel = 0,
                         BackgroundTransparency = 1,
-                        Position = UDim2.new(0, 0, 0.5, -2),
+                        Position = UDim2.new(0, 8, 0.5, -2),
                         AutomaticSize = Enum.AutomaticSize.X
                     }):AddToTheme({TextColor3 = 'Text'})
 
@@ -1931,9 +1972,20 @@ do --// UI Source
                     Library:Create("UIPadding", {
                         Name = "\0",
                         Parent = Items["Watermark"].Instance,
-                        PaddingRight = UDim.new(0, 8),
-                        PaddingLeft = UDim.new(0, 8)
+                        PaddingRight = UDim.new(0, 10),
+                        PaddingLeft = UDim.new(0, 10)
                     })
+
+                    -- Subtle vertical separator between title and subtext for visual hierarchy
+                    Items["Separator"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Watermark"].Instance,
+                        AnchorPoint = Vector2.new(0, 0.5),
+                        Position = UDim2.new(0, 0, 0.5, 0),
+                        Size = UDim2.new(0, 1, 0, 11),
+                        BorderSizePixel = 0,
+                        BackgroundColor3 = Library.Theme["Outline 2"]
+                    }):AddToTheme({BackgroundColor3 = 'Outline 2'})
 
                     Watermark.Items = Items
                 end
@@ -2034,6 +2086,47 @@ do --// UI Source
                         BackgroundColor3 = Library.Theme["Inline"]
                     }):AddToTheme({BackgroundColor3 = 'Inline'})
 
+                    -- Accent dot indicator matching the watermark branding
+                    Items["AccentDot"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Title"].Instance,
+                        AnchorPoint = Vector2.new(0, 0.5),
+                        Position = UDim2.new(0, 0, 0.5, 0),
+                        Size = UDim2.new(0, 3, 0, 3),
+                        BorderSizePixel = 0,
+                        ZIndex = 3,
+                        BackgroundColor3 = Library.Theme["Accent"]
+                    }):AddToTheme({BackgroundColor3 = 'Accent'})
+
+                    Library:Create("UIStroke", {
+                        Name = "\0",
+                        Parent = Items["AccentDot"].Instance,
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        LineJoinMode = Enum.LineJoinMode.Miter,
+                        Color = Library.Theme["Outline 3"],
+                        BorderOffset = UDim.new(0, 1)
+                    }):AddToTheme({Color = 'Outline 3'})
+
+                    -- Subtle accent underline beneath the title
+                    Items["AccentLine"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Title"].Instance,
+                        AnchorPoint = Vector2.new(0, 1),
+                        Position = UDim2.new(0, 0, 1, -1),
+                        Size = UDim2.new(1, 0, 0, 1),
+                        BorderSizePixel = 0,
+                        ZIndex = 3,
+                        BackgroundColor3 = Library.Theme["Accent"]
+                    }):AddToTheme({BackgroundColor3 = 'Accent'})
+
+                    Library:Create("UIStroke", {
+                        Name = "\0",
+                        Parent = Items["AccentLine"].Instance,
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        LineJoinMode = Enum.LineJoinMode.Miter,
+                        Color = Library.Theme["Outline 3"]
+                    }):AddToTheme({Color = 'Outline 3'})
+
                     Library:Create("UIStroke", {
                         Name = "\0",
                         Parent = Items["Title"].Instance,
@@ -2083,8 +2176,8 @@ do --// UI Source
                     Library:Create("UIPadding", {
                         Name = "\0",
                         Parent = Items["Title"].Instance,
-                        PaddingRight = UDim.new(0, 8),
-                        PaddingLeft = UDim.new(0, 8)
+                        PaddingRight = UDim.new(0, 9),
+                        PaddingLeft = UDim.new(0, 9)
                     })
 
                     Items["Text"] = Library:Create("TextLabel", {
@@ -2099,7 +2192,7 @@ do --// UI Source
                         AnchorPoint = Vector2.new(0, 0.5),
                         BorderSizePixel = 0,
                         BackgroundTransparency = 1,
-                        Position = UDim2.new(0, 0, 0.5, -2),
+                        Position = UDim2.new(0, 8, 0.5, -2),
                         AutomaticSize = Enum.AutomaticSize.X
                     }):AddToTheme({TextColor3 = 'Text'})
 
@@ -2111,9 +2204,9 @@ do --// UI Source
                     Library:Create("UIPadding", {
                         Name = "\0",
                         Parent = Items["KeybindList"].Instance,
-                        PaddingBottom = UDim.new(0, 7),
-                        PaddingRight = UDim.new(0, 8),
-                        PaddingLeft = UDim.new(0, 8)
+                        PaddingBottom = UDim.new(0, 8),
+                        PaddingRight = UDim.new(0, 9),
+                        PaddingLeft = UDim.new(0, 9)
                     })
 
                     Items["Content"] = Library:Create("Frame", {
@@ -2128,7 +2221,7 @@ do --// UI Source
                     Library:Create("UIListLayout", {
                         Name = "\0",
                         Parent = Items["Content"].Instance,
-                        Padding = UDim.new(0, 5),
+                        Padding = UDim.new(0, 4),
                         SortOrder = Enum.SortOrder.LayoutOrder
                     })
 
@@ -2157,7 +2250,8 @@ do --// UI Source
                             Parent = Items["Content"].Instance,
                             BackgroundTransparency = 1,
                             Size = UDim2.new(0, 180, 0, 15),
-                            BorderSizePixel = 0
+                            BorderSizePixel = 0,
+                            ClipsDescendants = true
                         })
 
                         NewItems["Holder"] = Library:Create("Frame", {
@@ -2167,6 +2261,17 @@ do --// UI Source
                             Size = UDim2.new(1, 0, 1, 0),
                             BorderSizePixel = 0
                         })
+
+                        -- Accent status dot: glows when the keybind is active
+                        NewItems["StatusDot"] = Library:Create("Frame", {
+                            Name = "\0",
+                            Parent = NewItems["Holder"].Instance,
+                            AnchorPoint = Vector2.new(0, 0.5),
+                            Position = UDim2.new(0, 0, 0.5, 0),
+                            Size = UDim2.new(0, 2, 0, 2),
+                            BorderSizePixel = 0,
+                            BackgroundColor3 = Library.Theme["Outline 1"]
+                        }):AddToTheme({BackgroundColor3 = 'Outline 1'})
 
                         NewItems["Text"] = Library:Create("TextLabel", {
                             Name = "\0",
@@ -2178,7 +2283,7 @@ do --// UI Source
                             AnchorPoint = Vector2.new(0, 0.5),
                             Size = UDim2.new(0, 0, 0, 15),
                             BackgroundTransparency = 1,
-                            Position = UDim2.new(0, 0, 0.5, 0),
+                            Position = UDim2.new(0, 7, 0.5, 0),
                             BorderSizePixel = 0,
                             AutomaticSize = Enum.AutomaticSize.X
                         }):AddToTheme({TextColor3 = 'Text'})
@@ -2231,10 +2336,18 @@ do --// UI Source
                         if Bool then
                             NewItems["NewKey"].Instance.Visible = true
 
+                            -- Glow the status dot with the accent color when active
+                            NewItems["StatusDot"]:ChangeItemTheme({BackgroundColor3 = "Accent"})
+                            NewItems["StatusDot"]:Tween({BackgroundColor3 = Library.Theme.Accent, Size = UDim2.new(0, 3, 0, 3)})
+
                             NewItems["NewKey"]:Tween({Size = UDim2.new(0, 180, 0, 15), Position = UDim2.new(0, 0, 0, 0)})
                             NewItems["Text"]:Tween({TextTransparency = 0})
                             NewItems["Mode"]:Tween({TextTransparency = 0})
                         else
+                            -- Dim the status dot back to outline when inactive
+                            NewItems["StatusDot"]:ChangeItemTheme({BackgroundColor3 = "Outline 1"})
+                            NewItems["StatusDot"]:Tween({BackgroundColor3 = Library.Theme["Outline 1"], Size = UDim2.new(0, 2, 0, 2)})
+
                             Library:Thread(function()
                                 NewItems["NewKey"]:Tween({Size = UDim2.new(0, 0, 0, 0), Position = UDim2.new(-1, 0, 0, 0)})
                                 local gayporn = NewItems["Text"]:Tween({TextTransparency = 1})
@@ -2977,9 +3090,21 @@ do --// UI Source
                     Library:Create("UIPadding", {
                         Name = "\0",
                         Parent = Items["Notification"].Instance,
-                        PaddingRight = UDim.new(0, 8),
-                        PaddingLeft = UDim.new(0, 8)
+                        PaddingRight = UDim.new(0, 9),
+                        PaddingLeft = UDim.new(0, 13)
                     })
+
+                    -- Accent indicator bar on the left edge for a branded notification look
+                    Items["AccentBar"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Notification"].Instance,
+                        AnchorPoint = Vector2.new(0, 0.5),
+                        Position = UDim2.new(0, 3, 0.5, 0),
+                        Size = UDim2.new(0, 2, 0, 12),
+                        BorderSizePixel = 0,
+                        ZIndex = 3,
+                        BackgroundColor3 = Library.Theme["Accent"]
+                    }):AddToTheme({BackgroundColor3 = 'Accent'})
 
                     Items["Text"] = Library:Create("TextLabel", {
                         Name = "\0",
@@ -3012,6 +3137,9 @@ do --// UI Source
                     end
                 end
 
+                -- The accent bar starts slim and grows in for a premium entrance
+                Items["AccentBar"].Instance.Size = UDim2.new(0, 0, 0, 12)
+
                 local GetSize = function()
                     local AbsSize = Items["Notification"].Instance.AbsoluteSize
                     Items["Notification"].Instance.AutomaticSize = Enum.AutomaticSize.None
@@ -3037,6 +3165,8 @@ do --// UI Source
                         end
                     end
 
+                    -- Slide the accent bar in to full height for a polished entrance
+                    Items["AccentBar"]:Tween({Size = UDim2.new(0, 2, 0, 14)}, Info)
                     Items["Notification"]:Tween({Size = UDim2.new(0, Size.X, 0, Size.Y)}, Info)
 
                     task.delay(Params.Time + 0.1, function()
@@ -3050,6 +3180,8 @@ do --// UI Source
                             end
                         end
 
+                        -- Collapse the accent bar back to nothing on exit
+                        Items["AccentBar"]:Tween({Size = UDim2.new(0, 0, 0, 12)}, Info)
                         Items["Notification"]:Tween({Size = UDim2.new(0, 0, 0, 0)}, Info)
                         task.wait(0.5)
                         Items["Notification"].Instance:Destroy()
@@ -3250,6 +3382,27 @@ do --// UI Source
                         PaddingLeft = UDim.new(0, 8)
                     })
 
+                    -- Accent dot indicator before the window title for brand consistency
+                    Items["TitleDot"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Title"].Instance,
+                        AnchorPoint = Vector2.new(0, 0.5),
+                        Position = UDim2.new(0, 0, 0.5, -1),
+                        Size = UDim2.new(0, 3, 0, 3),
+                        BorderSizePixel = 0,
+                        ZIndex = 3,
+                        BackgroundColor3 = Library.Theme["Accent"]
+                    }):AddToTheme({BackgroundColor3 = 'Accent'})
+
+                    Library:Create("UIStroke", {
+                        Name = "\0",
+                        Parent = Items["TitleDot"].Instance,
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        LineJoinMode = Enum.LineJoinMode.Miter,
+                        Color = Library.Theme["Outline 3"],
+                        BorderOffset = UDim.new(0, 1)
+                    }):AddToTheme({Color = 'Outline 3'})
+
                     Items["ActualTitle"] = Library:Create("TextLabel", {
                         Name = "\0",
                         FontFace = Library.BoldFont,
@@ -3262,7 +3415,7 @@ do --// UI Source
                         AnchorPoint = Vector2.new(0, 0.5),
                         BorderSizePixel = 0,
                         BackgroundTransparency = 1,
-                        Position = UDim2.new(0, 0, 0.5, -3),
+                        Position = UDim2.new(0, 8, 0.5, -3),
                         AutomaticSize = Enum.AutomaticSize.X
                     }):AddToTheme({TextColor3 = 'Text'})
 
@@ -3431,6 +3584,38 @@ do --// UI Source
                         BackgroundColor3 = Library.Theme["Inline"]
                     }):AddToTheme({BackgroundColor3 = 'Inline'})
 
+                    -- Accent underline indicator shown when the tab is active.
+                    -- Sits just above the tab and slides/fades in for a polished feel.
+                    Items["AccentBar"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Inactive"].Instance,
+                        AnchorPoint = Vector2.new(0.5, 1),
+                        Position = UDim2.new(0.5, 0, 0, -1),
+                        Size = UDim2.new(0, 0, 0, 1),
+                        ZIndex = 5,
+                        BorderSizePixel = 0,
+                        BackgroundColor3 = Library.Theme["Accent"]
+                    }):AddToTheme({BackgroundColor3 = 'Accent'})
+
+                    Library:Create("UIStroke", {
+                        Name = "\0",
+                        Parent = Items["AccentBar"].Instance,
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        LineJoinMode = Enum.LineJoinMode.Miter,
+                        Color = Library.Theme["Outline 3"]
+                    }):AddToTheme({Color = 'Outline 3'})
+
+                    -- Subtle hover highlight frame behind the tab text
+                    Items["HoverBg"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Inactive"].Instance,
+                        BackgroundTransparency = 1,
+                        Size = UDim2.new(1, 0, 1, 0),
+                        ZIndex = 1,
+                        BorderSizePixel = 0,
+                        BackgroundColor3 = Library.Theme["Hovered Element"]
+                    }):AddToTheme({BackgroundColor3 = 'Hovered Element'})
+
                     Items["Page"] = Library:Create("Frame", {
                         Name = "\0",
                         Parent = Library.Holder.Instance,
@@ -3529,13 +3714,23 @@ do --// UI Source
                     end
 
                     Page.Debounce = true
+                    Page.Active = true
+
+                    -- Easing for the accent bar slide/fade
+                    local BarInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
 
                     if Old then
+                        Old.Active = false
                         Old.Items["Text"]:ChangeItemTheme({TextColor3 = "Inactive Text"})
                         Old.Items["Text"]:Tween({TextColor3 = Library.Theme["Inactive Text"]})
 
                         Old.Items["Hide2"]:Tween({BackgroundTransparency = 0})
                         Old.Items["Hide"].Instance.Visible = false
+
+                        -- Collapse the old tab's accent bar
+                        Old.Items["AccentBar"]:Tween({Size = UDim2.new(0, 0, 0, 1)}, BarInfo)
+                        -- Fade out the old tab's hover highlight
+                        Old.Items["HoverBg"]:Tween({BackgroundTransparency = 1}, BarInfo)
 
                         Old.Items["Inactive"].Instance.Size = UDim2.new(0, 0, 0, 21)
                         Old.Items["Text"].Instance.Position = UDim2.new(0, 0, 0.5, 0)
@@ -3560,8 +3755,24 @@ do --// UI Source
                     Items["Inactive"].Instance.Size = UDim2.new(0, 0, 0, 20)
                     Items["Text"].Instance.Position = UDim2.new(0, 0, 0.5, 1)
 
+                    -- Animate the accent bar in: expand to ~70% of the tab width
+                    Items["AccentBar"]:Tween({Size = UDim2.new(0.7, 0, 0, 1)}, BarInfo)
+                    -- Ensure the hover highlight is hidden on the active tab
+                    Items["HoverBg"]:Tween({BackgroundTransparency = 1}, BarInfo)
+
                     Page.Window.Current = Page
                 end
+
+                -- Subtle hover highlight: fade in a soft tint behind the tab
+                Items["Inactive"]:OnHover(function()
+                    if not Page.Active then
+                        Items["HoverBg"]:Tween({BackgroundTransparency = 0.85}, TweenInfo.new(0.2, Enum.EasingStyle.Quint, Enum.EasingDirection.Out))
+                    end
+                end, function()
+                    if not Page.Active then
+                        Items["HoverBg"]:Tween({BackgroundTransparency = 1}, TweenInfo.new(0.2, Enum.EasingStyle.Quint, Enum.EasingDirection.Out))
+                    end
+                end)
 
                 Items["Inactive"]:Connect("MouseButton1Down", function()
                     Page:Turn()
@@ -3614,6 +3825,27 @@ do --// UI Source
                         BorderOffset = UDim.new(0, 1)
                     }):AddToTheme({Color = 'Outline 3'})
 
+                    -- Accent dot indicator next to the section title for a branded, polished look
+                    Items["AccentDot"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Section"].Instance,
+                        AnchorPoint = Vector2.new(0, 0.5),
+                        Position = UDim2.new(0, 5, 0, 12),
+                        Size = UDim2.new(0, 3, 0, 3),
+                        BorderSizePixel = 0,
+                        ZIndex = 3,
+                        BackgroundColor3 = Library.Theme["Accent"]
+                    }):AddToTheme({BackgroundColor3 = 'Accent'})
+
+                    Library:Create("UIStroke", {
+                        Name = "\0",
+                        Parent = Items["AccentDot"].Instance,
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        LineJoinMode = Enum.LineJoinMode.Miter,
+                        Color = Library.Theme["Outline 3"],
+                        BorderOffset = UDim.new(0, 1)
+                    }):AddToTheme({Color = 'Outline 3'})
+
                     Items["Text"] = Library:Create("TextLabel", {
                         Name = "\0",
                         FontFace = Library.BoldFont,
@@ -3623,7 +3855,7 @@ do --// UI Source
                         Text = Section.Name,
                         Size = UDim2.new(0, 0, 0, 12),
                         BackgroundTransparency = 1,
-                        Position = UDim2.new(0, 5, 0, 6),
+                        Position = UDim2.new(0, 11, 0, 6),
                         BorderSizePixel = 0,
                         AutomaticSize = Enum.AutomaticSize.X
                     }):AddToTheme({TextColor3 = 'Text'})
@@ -3646,14 +3878,14 @@ do --// UI Source
                     Library:Create("UIListLayout", {
                         Name = "\0",
                         Parent = Items["Content"].Instance,
-                        Padding = UDim.new(0, 4),
+                        Padding = UDim.new(0, 5),
                         SortOrder = Enum.SortOrder.LayoutOrder
                     })
 
                     Library:Create("UIPadding", {
                         Name = "\0",
                         Parent = Items["Section"].Instance,
-                        PaddingBottom = UDim.new(0, 6)
+                        PaddingBottom = UDim.new(0, 7)
                     })
 
                     Section.Items = Items
@@ -3856,6 +4088,37 @@ do --// UI Source
                             BackgroundColor3 = Library.Theme["Inline"]
                         }):AddToTheme({BackgroundColor3 = 'Inline'})
 
+                        -- Accent underline indicator for the active multi-section tab
+                        NewItems["AccentBar"] = Library:Create("Frame", {
+                            Name = "\0",
+                            Parent = NewItems["Inactive"].Instance,
+                            AnchorPoint = Vector2.new(0.5, 1),
+                            Position = UDim2.new(0.5, 0, 0, -1),
+                            Size = UDim2.new(0, 0, 0, 1),
+                            ZIndex = 5,
+                            BorderSizePixel = 0,
+                            BackgroundColor3 = Library.Theme["Accent"]
+                        }):AddToTheme({BackgroundColor3 = 'Accent'})
+
+                        Library:Create("UIStroke", {
+                            Name = "\0",
+                            Parent = NewItems["AccentBar"].Instance,
+                            ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                            LineJoinMode = Enum.LineJoinMode.Miter,
+                            Color = Library.Theme["Outline 3"]
+                        }):AddToTheme({Color = 'Outline 3'})
+
+                        -- Subtle hover highlight behind the multi-section tab
+                        NewItems["HoverBg"] = Library:Create("Frame", {
+                            Name = "\0",
+                            Parent = NewItems["Inactive"].Instance,
+                            BackgroundTransparency = 1,
+                            Size = UDim2.new(1, 0, 1, 0),
+                            ZIndex = 1,
+                            BorderSizePixel = 0,
+                            BackgroundColor3 = Library.Theme["Hovered Element"]
+                        }):AddToTheme({BackgroundColor3 = 'Hovered Element'})
+
                         NewItems["Content"] = Library:Create("Frame", {
                             Name = "\0",
                             Parent = Library.UnusedHolder.Instance,
@@ -3975,15 +4238,16 @@ do --// UI Source
                         Text = "",
                         AutoButtonColor = false,
                         BackgroundTransparency = 1,
-                        Size = UDim2.new(1, 0, 0, 12),
+                        Size = UDim2.new(1, 0, 0, 14),
                         BorderSizePixel = 0
                     })
 
                     Items["Indicator"] = Library:Create("Frame", {
                         Name = "\0",
                         Parent = Items["Toggle"].Instance,
-                        Position = UDim2.new(0, 2, 0, 2),
-                        Size = UDim2.new(0, 8, 0, 8),
+                        AnchorPoint = Vector2.new(0, 0.5),
+                        Position = UDim2.new(0, 2, 0.5, 0),
+                        Size = UDim2.new(0, 11, 0, 11),
                         BorderSizePixel = 0,
                         BackgroundColor3 = Library.Theme["Content"]
                     }):AddToTheme({BackgroundColor3 = 'Content'})
@@ -4005,6 +4269,19 @@ do --// UI Source
                         BorderOffset = UDim.new(0, 1)
                     }):AddToTheme({Color = 'Outline 3'})
 
+                    -- Accent glow ring around the indicator, visible only when enabled
+                    Items["Glow"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Indicator"].Instance,
+                        AnchorPoint = Vector2.new(0.5, 0.5),
+                        BackgroundTransparency = 1,
+                        Position = UDim2.new(0.5, 0, 0.5, 0),
+                        Size = UDim2.new(1, 4, 1, 4),
+                        BorderSizePixel = 0,
+                        ZIndex = -1,
+                        BackgroundColor3 = Library.Theme["Accent"]
+                    }):AddToTheme({BackgroundColor3 = 'Accent'})
+
                     Items["Inline"] = Library:Create("Frame", {
                         Name = "\0",
                         Parent = Items["Indicator"].Instance,
@@ -4024,7 +4301,7 @@ do --// UI Source
                         Text = Toggle.Name,
                         Size = UDim2.new(0, 0, 0, 12),
                         BackgroundTransparency = 1,
-                        Position = UDim2.new(0, 18, 0, -1),
+                        Position = UDim2.new(0, 20, 0, -1),
                         BorderSizePixel = 0,
                         AutomaticSize = Enum.AutomaticSize.X
                     }):AddToTheme({TextColor3 = 'Inactive Text'})
@@ -4054,10 +4331,19 @@ do --// UI Source
                         SortOrder = Enum.SortOrder.LayoutOrder
                     })
 
+                    -- Smoother hover: subtle background tint + a soft size pulse on the indicator
+                    local HoverInfo = TweenInfo.new(0.18, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
+
                     Items["Toggle"]:OnHover(function()
-                        Items["Indicator"]:Tween({BackgroundColor3 = Library.Theme["Hovered Element"]})
+                        Items["Indicator"]:Tween({BackgroundColor3 = Library.Theme["Hovered Element"]}, HoverInfo)
+                        if not Toggle.Value then
+                            Items["Indicator"]:Tween({Size = UDim2.new(0, 12, 0, 12)}, HoverInfo)
+                        end
                     end, function()
-                        Items["Indicator"]:Tween({BackgroundColor3 = Library.Theme["Content"]})
+                        Items["Indicator"]:Tween({BackgroundColor3 = Library.Theme["Content"]}, HoverInfo)
+                        if not Toggle.Value then
+                            Items["Indicator"]:Tween({Size = UDim2.new(0, 11, 0, 11)}, HoverInfo)
+                        end
                     end)
 
                     Toggle.Items = Items
@@ -4066,12 +4352,25 @@ do --// UI Source
                 function Toggle:Set(Bool)
                     Toggle.Value = Bool
 
+                    -- Springy easing for a more responsive, premium feel
+                    local SpringInfo = TweenInfo.new(0.28, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+
                     if Bool then
-                        Items["Inline"]:Tween({BackgroundTransparency = 0, Size = UDim2.new(1, 0, 1, 0)})
+                        -- Fill the indicator with the accent color
+                        Items["Inline"]:Tween({BackgroundTransparency = 0, Size = UDim2.new(1, 0, 1, 0)}, SpringInfo)
+                        -- Reveal a soft accent glow around the indicator
+                        Items["Glow"]:Tween({BackgroundTransparency = 0.55}, TweenInfo.new(0.4, Enum.EasingStyle.Sine, Enum.EasingDirection.Out))
+                        -- Bump the indicator size for tactile feedback
+                        Items["Indicator"]:Tween({Size = UDim2.new(0, 12, 0, 12)}, SpringInfo)
                         Items["Text"]:ChangeItemTheme({TextColor3 = "Text"})
                         Items["Text"]:Tween({TextColor3 = Library.Theme.Text})
                     else
-                        Items["Inline"]:Tween({BackgroundTransparency = 1, Size = UDim2.new(0, 0, 0, 0)})
+                        -- Collapse the accent fill back to nothing
+                        Items["Inline"]:Tween({BackgroundTransparency = 1, Size = UDim2.new(0, 0, 0, 0)}, SpringInfo)
+                        -- Hide the glow
+                        Items["Glow"]:Tween({BackgroundTransparency = 1}, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.Out))
+                        -- Restore the indicator size
+                        Items["Indicator"]:Tween({Size = UDim2.new(0, 11, 0, 11)}, SpringInfo)
                         Items["Text"]:ChangeItemTheme({TextColor3 = "Inactive Text"})
                         Items["Text"]:Tween({TextColor3 = Library.Theme["Inactive Text"]})
                     end
@@ -4162,7 +4461,7 @@ do --// UI Source
                             Name = "\0",
                             Parent = Items["Toggle"].Instance,
                             BackgroundTransparency = 1,
-                            Position = UDim2.new(0, 19, 0, 19),
+                            Position = UDim2.new(0, 19, 0, 21),
                             Size = UDim2.new(1, -19, 0, 0),
                             Visible = false,
                             BorderSizePixel = 0,
@@ -4185,7 +4484,7 @@ do --// UI Source
                         SettingsItems["Connect"] = Library:Create("Frame", {
                             Name = "\0",
                             Parent = Items["Toggle"].Instance,
-                            Position = UDim2.new(0, 5, 0, 12),
+                            Position = UDim2.new(0, 5, 0, 14),
                             Size = UDim2.new(0, 2, 0, 0),
                             BorderSizePixel = 0,
                             BackgroundColor3 = Library.Theme["Outline 2"]
@@ -4303,21 +4602,36 @@ do --// UI Source
                         Parent = Items["Text"].Instance
                     })
 
+                    -- Smoother hover: quicker ease + subtle accent tint hint
+                    local HoverInfo = TweenInfo.new(0.16, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
+
                     Items["RealButton"]:OnHover(function()
-                        Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme["Hovered Element"]})
+                        Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme["Hovered Element"]}, HoverInfo)
+                        Items["Text"]:Tween({TextColor3 = Library.Theme["Accent"]}, HoverInfo)
                     end, function()
-                        Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme["Content"]})
+                        Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme["Content"]}, HoverInfo)
+                        Items["Text"]:ChangeItemTheme({TextColor3 = "Text"})
+                        Items["Text"]:Tween({TextColor3 = Library.Theme.Text}, HoverInfo)
                     end)
 
                     Button.Items = Items
                 end
 
                 function Button:Press()
+                    -- Tactile press: flash accent + a quick size dip for feedback
+                    local PressInfo = TweenInfo.new(0.08, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+
                     Items["RealButton"]:ChangeItemTheme({BackgroundColor3 = "Accent"})
-                    Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme.Accent})
+                    Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme.Accent}, PressInfo)
+                    Items["Text"]:ChangeItemTheme({TextColor3 = "Content"})
+                    Items["Text"]:Tween({TextColor3 = Library.Theme.Content}, PressInfo)
+                    Items["RealButton"]:Tween({Size = UDim2.new(1, -6, 0, 16), Position = UDim2.new(0, 3, 0, 1)}, PressInfo)
                     task.wait(0.1)
                     Items["RealButton"]:ChangeItemTheme({BackgroundColor3 = "Content"})
-                    Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme.Content})
+                    Items["RealButton"]:Tween({BackgroundColor3 = Library.Theme.Content}, PressInfo)
+                    Items["Text"]:ChangeItemTheme({TextColor3 = "Text"})
+                    Items["Text"]:Tween({TextColor3 = Library.Theme.Text}, PressInfo)
+                    Items["RealButton"]:Tween({Size = UDim2.new(1, -4, 0, 18), Position = UDim2.new(0, 2, 0, 0)}, PressInfo)
 
                     Library:SafeCall(Button.Callback)
                 end
@@ -4416,6 +4730,27 @@ do --// UI Source
                         BackgroundColor3 = Library.Theme["Accent"]
                     }):AddToTheme({BackgroundColor3 = 'Accent'})
 
+                    -- Draggable handle knob that rides the accent fill.
+                    -- Sits at the right edge of the accent and grows on hover for affordance.
+                    Items["Knob"] = Library:Create("Frame", {
+                        Name = "\0",
+                        Parent = Items["Accent"].Instance,
+                        AnchorPoint = Vector2.new(1, 0.5),
+                        Position = UDim2.new(1, 0, 0.5, 0),
+                        Size = UDim2.new(0, 2, 0, 5),
+                        BorderSizePixel = 0,
+                        ZIndex = 3,
+                        BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    })
+
+                    Library:Create("UIStroke", {
+                        Name = "\0",
+                        Parent = Items["Knob"].Instance,
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        LineJoinMode = Enum.LineJoinMode.Miter,
+                        Color = Library.Theme["Outline 3"]
+                    }):AddToTheme({Color = 'Outline 3'})
+
                     Items["Value"] = Library:Create("TextLabel", {
                         Name = "\0",
                         FontFace = Library.Font,
@@ -4455,10 +4790,14 @@ do --// UI Source
                         Parent = Items["Text"].Instance
                     })
 
+                    local HoverInfo = TweenInfo.new(0.18, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
+
                     Items["RealSlider"]:OnHover(function()
-                        Items["RealSlider"]:Tween({BackgroundColor3 = Library.Theme["Hovered Element"]})
+                        Items["RealSlider"]:Tween({BackgroundColor3 = Library.Theme["Hovered Element"]}, HoverInfo)
+                        Items["Knob"]:Tween({Size = UDim2.new(0, 3, 0, 7)}, HoverInfo)
                     end, function()
-                        Items["RealSlider"]:Tween({BackgroundColor3 = Library.Theme["Content"]})
+                        Items["RealSlider"]:Tween({BackgroundColor3 = Library.Theme["Content"]}, HoverInfo)
+                        Items["Knob"]:Tween({Size = UDim2.new(0, 2, 0, 5)}, HoverInfo)
                     end)
 
                     Slider.Items = Items
@@ -4467,7 +4806,8 @@ do --// UI Source
                 function Slider:Set(Value)
                     Slider.Value = Library:Round(math.clamp(Value, Slider.Min, Slider.Max), Slider.Decimals)
 
-                    Items["Accent"]:Tween({Size = UDim2.new((Slider.Value - Slider.Min) / (Slider.Max - Slider.Min), 0, 1, 0)}, TweenInfo.new(Library.Animation.Time, Enum.EasingStyle.Quart, Enum.EasingDirection.Out))
+                    -- Smoother, slightly snappier easing for the accent fill
+                    Items["Accent"]:Tween({Size = UDim2.new((Slider.Value - Slider.Min) / (Slider.Max - Slider.Min), 0, 1, 0)}, TweenInfo.new(0.2, Enum.EasingStyle.Quint, Enum.EasingDirection.Out))
                     Items["Value"].Instance.Text = string.format("%s%s", Slider.Value, Slider.Suffix)
 
                     Flags[Slider.Flag] = Slider.Value
